@@ -1,0 +1,4 @@
+@EndUserText.label: 'JL: Customizing "Empfänger"'
+define service ZJL_SD_RECIPIENT {
+  expose ZJL_C_A_RECIPIENT as Root;
+}

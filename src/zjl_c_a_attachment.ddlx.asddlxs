@@ -1,0 +1,102 @@
+@Metadata.layer: #CORE
+
+@Search.searchable
+
+@UI.headerInfo: { typeName:       '{@i18n>Anlage}',
+                  typeNamePlural: '{@i18n>Anlagen}',
+                  typeImageUrl:   'sap-icon://activity-items',
+                  imageUrl: 'Attachment',
+                  title:          { type: #WITH_NAVIGATION_PATH, value: 'FileDescr' } }
+
+@UI.presentationVariant: [{sortOrder: [{ by: 'CreateTS', direction: #DESC }] }]
+
+annotate entity ZJL_C_A_ATTACHMENT with
+{
+
+  @UI.facet: [
+
+  { id:              'HeaderFacet',
+    purpose:         #HEADER,
+    type:            #FIELDGROUP_REFERENCE,
+    targetQualifier: 'HeaderItems',
+    position:         010 },
+
+   { id:              'Facet_Process',
+      type:            #COLLECTION,
+      label:           '{@i18n>Detail}',
+      position:        020 },
+
+          { id:              'Fieldgroup1-ID',
+            type:            #IDENTIFICATION_REFERENCE,
+            label:           '{@i18n>BasicData}',
+            parentId:        'Facet_Process',
+            targetQualifier: 'Fieldgroup1',
+            position:         010 },
+
+   { id:              'Facet_Log',
+      type:            #COLLECTION,
+      label:           '{@i18n>Log}',
+      importance:      #LOW,
+      hidden:          true,
+      position:        030 },
+
+          { id:              'Fieldgroup2-ID',
+            type:            #FIELDGROUP_REFERENCE,
+            label:           '{@i18n>Version}',
+            parentId:        'Facet_Log',
+            targetQualifier: 'Fieldgroup2',
+            position:         010 },
+
+          { id:              'Fieldgroup3-ID',
+            type:            #FIELDGROUP_REFERENCE,
+            label:           '{@i18n>User}',
+            parentId:        'Facet_Log',
+            targetQualifier: 'Fieldgroup3',
+            position:         020 },
+
+          { id:              'Fieldgroup6-ID',
+            type:            #FIELDGROUP_REFERENCE,
+            label:           '{@i18n>Sonstiges}',
+            parentId:        'Facet_Log',
+            targetQualifier: 'Fieldgroup6',
+            position:         040 }
+
+                ]
+
+  @UI.fieldGroup:     [{ position: 010, semanticObjectAction: 'BO_show', qualifier: 'HeaderItems', type: #FOR_INTENT_BASED_NAVIGATION } ]
+  @Consumption.semanticObject: 'Z_TEST'
+  TaskID;
+
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup2', position: 0010 } ]
+  VersNO;
+
+  @UI.fieldGroup:     [ { position: 020, qualifier: 'HeaderItems' } ]
+  AtacNO;
+
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup3', position: 0010 } ]
+  CreateUserCD;
+
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup3', position: 0020 } ]
+  CreateTS;
+
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup3', position: 0030 } ]
+  ChangeUserCD;
+
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup3', position: 0040 } ]
+  ChangeTS;
+
+  @UI.hidden: true
+  Mimetype;
+
+  @UI.hidden: true
+  Filename;
+
+  @UI.lineItem:   [{ position: 0020 } ]
+  @UI.identification: [ { qualifier: 'Fieldgroup1', position: 0020 } ]
+  @Search.defaultSearchElement: true
+  FileDescr;
+
+  @UI.lineItem:   [{ position: 0010 } ]
+  @UI.identification: [ { qualifier: 'Fieldgroup1', position: 0010 } ]
+  Attachment;
+}

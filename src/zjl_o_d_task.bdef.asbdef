@@ -1,0 +1,85 @@
+unmanaged implementation in class ZJL_CL_TASK_BH unique;
+strict ( 2 );
+
+extensible;
+
+define behavior for ZJL_O_D_TASK alias Task
+
+authorization master ( global, instance )
+
+late numbering
+lock master
+
+etag master VersEtagTS
+extensible
+
+{
+
+  create ( precheck, features : global );
+  update ( precheck, features : instance );
+  delete ( features : instance );
+
+  field ( readonly ) TaskID, VersNO, VersFromDT, VersToDT, VersInactiveFL, VersEtagTS, VersOriginNO; // Version Management
+  field ( readonly ) CreateUserCD, CreateTS, ChangeUserCD, ChangeTS, ReleaseUserCD, ReleaseTS;       // Log Data
+  field ( readonly ) RecipientCD, RecipientGroupCD;                                                  // Recipient
+  field ( readonly ) StatusCD, BusinessObjCD, BusinessObjID, CompletedFL, MyTaskFL;                  // Other Data
+  field ( mandatory ) ProcessCD, TargetDT, ReSubmissDT, Descr;
+
+  factory action ( features : instance ) Refuse [1];                                                 // Action which creates a new version
+  factory action ( features : instance ) Complete [1];                                               // Action which creates a new version
+  factory action ( features : instance ) Forward parameter ZJL_O_H_TASK_RECIPIENT [1];               // Action which creates a new version
+  factory action ( features : instance ) Assign parameter ZJL_O_H_TASK_BUSINESSOBJ [1];              // Action which creates a new version
+
+  static function DefaultForCreate external 'DefaultForCreate_Task' result [1] $self;                // Default Values for Creation
+
+  mapping for ZJL_TAKO control ZJL_TAKO_X corresponding extensible                                   // Funzt nicht, daher auch an map_with_control denken
+  {
+    TaskId = task_id;
+    VersNO = vers_no;
+    ProcessCD = process_cd;
+    BusinessObjCD = businessobj_cd;
+    BusinessObjID = businessobj_id;
+    RecipientCD = recipient_cd;
+    RecipientGroupCD = recipient_group_cd;
+    TargetDT = target_dt;
+    ReSubmissDT = resubmiss_dt;
+    Descr = descr;
+    Note = note;
+  }
+
+  association _Attachment { create ( features : instance ); }
+
+}
+
+define behavior for ZJL_O_D_ATTACHMENT alias Attachment implementation in class ZJL_CL_ATTACH_BH unique
+
+authorization dependent
+
+extensible
+
+etag dependent by _Task
+lock dependent by _Task
+
+late numbering
+{
+
+  update;
+  delete;
+
+  field ( readonly ) TaskID, VersNO, AtacNO;                                             // Version Management
+  field ( readonly ) CreateUserCD, CreateTS, ChangeUserCD, ChangeTS;                     // Log Data
+  field ( mandatory ) FileDescr;
+
+  mapping for ZJL_ATAO control ZJL_ATAO_X corresponding                                  // Funzt nicht, daher auch an map_with_control denken
+  {
+    TaskId = task_id;
+    VersNO = vers_no;
+    AtacNO = atac_no;
+    Mimetype = mimetype;
+    Filename = filename;
+    FileDescr = file_descr;
+    Attachment = attachment;
+  }
+
+  association _Task { }
+}

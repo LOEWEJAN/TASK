@@ -1,0 +1,21 @@
+@EndUserText.label: 'JL: Basis View auf Werte (PROCESS)'
+@ObjectModel.dataCategory: #VALUE_HELP
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@Search.searchable: true
+@VDM.viewType: #BASIC
+
+define view entity ZJL_B_V_PROCESS
+  as select from ZJL_B_T_PROCESS as TXT
+
+{
+
+  key TXT.code,
+
+      @EndUserText.label: 'Kurztext'
+      @UI.hidden: false
+      TXT.Short,
+
+      @EndUserText.label: 'Langtext'
+      TXT.Large
+
+}

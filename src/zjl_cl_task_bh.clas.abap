@@ -1,0 +1,13 @@
+CLASS zjl_cl_task_bh DEFINITION
+  PUBLIC
+  ABSTRACT
+  FINAL
+  FOR BEHAVIOR OF zjl_o_d_task .
+
+  PUBLIC SECTION.
+ENDCLASS.
+
+
+
+CLASS zjl_cl_task_bh IMPLEMENTATION.
+ENDCLASS.

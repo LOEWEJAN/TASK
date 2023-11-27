@@ -1,0 +1,10 @@
+projection;
+strict ( 2 );
+
+define behavior for ZJL_C_A_RECIPIENT alias Recipient
+{
+
+  use create;
+  use update;
+  use delete;
+}

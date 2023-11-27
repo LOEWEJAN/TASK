@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_MSAG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <T100A>
+    <ARBGB>ZJL_TASK</ARBGB>
+    <MASTERLANG>D</MASTERLANG>
+    <STEXT>JL: Aufgabe</STEXT>
+   </T100A>
+   <T100>
+    <T100>
+     <SPRSL>D</SPRSL>
+     <ARBGB>ZJL_TASK</ARBGB>
+     <MSGNR>001</MSGNR>
+     <TEXT>Datum darf nicht in der Vergangenheit liegen: &amp;1</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>D</SPRSL>
+     <ARBGB>ZJL_TASK</ARBGB>
+     <MSGNR>002</MSGNR>
+     <TEXT>Zieldatum muß größer als Wiedervorlagedatum sein</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>D</SPRSL>
+     <ARBGB>ZJL_TASK</ARBGB>
+     <MSGNR>003</MSGNR>
+     <TEXT>Empfänger oder Empfängergruppe eingeben</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>D</SPRSL>
+     <ARBGB>ZJL_TASK</ARBGB>
+     <MSGNR>004</MSGNR>
+     <TEXT>Erinnerung wurde gesendet. &amp;1</TEXT>
+    </T100>
+   </T100>
+  </asx:values>
+ </asx:abap>
+</abapGit>

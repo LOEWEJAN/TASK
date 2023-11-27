@@ -1,0 +1,38 @@
+managed implementation in class zjl_cl_recipient_bh unique;
+strict ( 2 );
+
+extensible
+{ with determinations on modify;
+  with determinations on save;
+  with validations on save; }
+
+define behavior for ZJL_O_D_RECIPIENT alias recipient
+persistent table zjl_reco
+lock master
+authorization master ( instance )
+etag master VersEtagTS
+extensible
+
+{
+  create;
+  update;
+  delete ( features : instance );
+
+  field ( readonly ) VersEtagTS;                                           // Version Management
+  field ( readonly ) CreateUserCD, CreateTS, ChangeUserCD, ChangeTS;       // Log Data
+  field ( features : instance ) RecipientGroupCD, RecipientCD;
+
+
+  mapping for ZJL_RECO control ZJL_RECO_X corresponding extensible         // Funzt nicht, daher auch an map_with_control denken
+  {
+    RECIPIENTGROUPCD = RECIPIENT_GROUP_CD;
+    RECIPIENTCD = RECIPIENT_CD;
+    DELETEFL = DELETE_FL;
+  }
+
+  determination determination_create on modify { create; }
+  determination determination_update on modify { update; }
+
+  validation validation on save { create; update; }
+
+}

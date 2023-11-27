@@ -1,0 +1,29 @@
+projection;
+strict ( 2 );
+
+define behavior for ZJL_C_A_TASK alias task
+{
+  use create;
+  use update;
+  use delete;
+
+  use action Refuse;
+  use action Complete;
+  use action Assign;
+  use action Forward;
+
+  use function DefaultForCreate;
+
+  use association _Attachment { create; }
+
+}
+
+define behavior for ZJL_C_A_ATTACHMENT alias attachment
+{
+
+  use update;
+  use delete;
+
+  use association _Task;
+
+}

@@ -1,0 +1,186 @@
+@Metadata.layer: #CORE
+
+@Search.searchable
+
+@UI.headerInfo: { typeName:       '{@i18n>Aufgabe}',
+                  typeNamePlural: '{@i18n>Aufgaben}',
+                  typeImageUrl:   'sap-icon://activity-items',
+                  title:          { type: #WITH_NAVIGATION_PATH, value: 'Descr' } }
+
+@UI.presentationVariant: [{sortOrder: [{ by: 'ReSubmissDT', direction: #ASC }] }]
+
+annotate entity ZJL_C_A_TASK with
+{
+
+  @UI.facet: [
+
+  { id:              'HeaderFacet',
+    purpose:         #HEADER,
+    type:            #FIELDGROUP_REFERENCE,
+    targetQualifier: 'HeaderItems',
+    position:         010 },
+
+   { id:              'Facet_Process',
+      type:            #COLLECTION,
+      label:           '{@i18n>Detail}',
+      position:        020 },
+
+          { id:              'Fieldgroup1-ID',
+            type:            #FIELDGROUP_REFERENCE,
+            label:           '{@i18n>BasicData}',
+            parentId:        'Facet_Process',
+            targetQualifier: 'Fieldgroup1',
+            position:         010 },
+
+          { id:              'Fieldgroup5-ID',
+            type:            #FIELDGROUP_REFERENCE,
+            label:           '{@i18n>Note}',
+            parentId:        'Facet_Process',
+            targetQualifier: 'Fieldgroup5',
+            position:         020 },
+
+         { id:              'Fieldgroup7-ID',
+           type:            #LINEITEM_REFERENCE,
+           label:           '{@i18n>Anlage}',
+           position:         030,
+           targetElement:   '_Attachment'},
+
+         { id:              'Fieldgroup8-ID',
+           type:            #LINEITEM_REFERENCE,
+           label:           '{@i18n>Historie}',
+           position:         040,
+           targetElement:   '_HIS'},
+
+   { id:              'Facet_Log',
+      type:            #COLLECTION,
+      label:           '{@i18n>Log}',
+      importance: #LOW,
+      hidden: true,
+      position:        030 },
+
+          { id:              'Fieldgroup2-ID',
+            type:            #FIELDGROUP_REFERENCE,
+            label:           '{@i18n>Version}',
+            parentId:        'Facet_Log',
+            targetQualifier: 'Fieldgroup2',
+            position:         010 },
+
+          { id:              'Fieldgroup3-ID',
+            type:            #FIELDGROUP_REFERENCE,
+            label:           '{@i18n>User}',
+            parentId:        'Facet_Log',
+            targetQualifier: 'Fieldgroup3',
+            position:         020 },
+
+          { id:              'Fieldgroup4-ID',
+            type:            #FIELDGROUP_REFERENCE,
+            label:           '{@i18n>Recipient}',
+            parentId:        'Facet_Log',
+            targetQualifier: 'Fieldgroup4',
+            position:         030 },
+
+          { id:              'Fieldgroup6-ID',
+            type:            #FIELDGROUP_REFERENCE,
+            label:           '{@i18n>Sonstiges}',
+            parentId:        'Facet_Log',
+            targetQualifier: 'Fieldgroup6',
+            position:         040 }
+
+                ]
+
+  @UI.identification: [{importance: #HIGH, label: 'Ablehnen', dataAction: 'Refuse', type: #FOR_ACTION, position: 1 },
+  {importance: #HIGH, label: 'Erledigen', dataAction: 'Complete', type: #FOR_ACTION, position: 2 },
+  {importance: #HIGH, label: 'Objekt zuordnen', dataAction: 'Assign', type: #FOR_ACTION, position: 3},
+  {importance: #HIGH, label: 'Weiterleiten', dataAction: 'Forward', type: #FOR_ACTION, position: 4  }
+  ]
+
+  @Search.defaultSearchElement: true
+  @UI.lineItem:   [{ position: 0010 , type: #FOR_ACTION, dataAction: 'Refuse' , label: 'Ablehnen'},
+                   { position: 0011 , type: #FOR_ACTION, dataAction: 'Forward', label: 'Weiterleiten'} ]
+  @UI.fieldGroup:     [{ position: 010, qualifier: 'HeaderItems', semanticObjectAction: 'BO_show' } ]
+  @Consumption.semanticObject: 'Z_TEST'
+  TaskId;
+
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup2', position: 0010 } ]
+  VersNO;
+
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup2', position: 0020 } ]
+  VersFromDT;
+
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup2', position: 0030 } ]
+  VersToDT;
+
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup2', position: 0040 } ]
+  VersInactiveFL;
+
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup2', position: 0050 } ]
+  VersEtagTS;
+
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup2', position: 0060 } ]
+  VersOriginNO;
+
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup3', position: 0010 } ]
+  CreateUserCD;
+
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup3', position: 0020 } ]
+  CreateTS;
+
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup3', position: 0030 } ]
+  ChangeUserCD;
+
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup3', position: 0040 } ]
+  ChangeTS;
+
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup3', position: 0050 } ]
+  ReleaseUserCD;
+
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup3', position: 0060 } ]
+  ReleaseTS;
+
+  @UI.lineItem: [{ position: 040 }]
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup1', position: 0010 } ]
+  ProcessCD;
+
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup6', position: 0050 } ]
+  StatusCD;
+
+  @UI.lineItem: [{ position: 060 }]
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup4', position: 0010 } ]
+  RecipientCD;
+
+  @UI.lineItem: [{ position: 070 }]
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup4', position: 0020 } ]
+  RecipientGroupCD;
+
+  @UI.lineItem: [{ position: 020, criticality: 'CalcCriticality' }]
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup1', position: 0020 } ]
+  ReSubmissDT;
+
+  @UI.lineItem: [{ position: 030 }]
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup1', position: 0030 } ]
+  TargetDT;
+
+  @UI.lineItem: [{ position: 080 }]
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup6', position: 0010 } ]
+  CompletedFL;
+
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup6', position: 0020 } ]
+  BusinessObjCD;
+
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup6', position: 0030 } ]
+  BusinessObjID;
+
+  @Search.defaultSearchElement: true
+  @UI.lineItem: [{ position: 050 }]
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup5', position: 0010 } ]
+  Descr;
+
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup5', position: 0020 } ]
+  @UI.multiLineText: true
+  Note;
+
+  @UI.lineItem: [{ position: 090 }]
+  @UI.fieldGroup:     [ { qualifier: 'Fieldgroup6', position: 0040 } ]
+  MyTaskFL;
+
+}

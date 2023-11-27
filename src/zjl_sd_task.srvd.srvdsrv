@@ -1,0 +1,7 @@
+@EndUserText.label: 'JL: Anwendung "Aufgabe verwalten"'
+define service ZJL_SD_TASK {
+  expose ZJL_C_A_TASK as Root;
+  expose ZJL_C_A_ATTACHMENT as Attachment;
+  expose ZJL_O_D_TASKVERS as History;
+  expose ZJL_B_V_GOBO;
+}

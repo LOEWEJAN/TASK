@@ -1,0 +1,50 @@
+@Metadata.layer: #CORE
+
+@UI.presentationVariant: [{sortOrder: [{ by: 'VersNO', direction: #DESC }] }]
+
+annotate entity ZJL_O_D_TASKVERS with
+{
+
+  @UI.lineItem:   [{ position: 0010 } ]
+  VersNO;
+
+  @UI.lineItem:   [{ position: 0020 } ]
+  CreateUserCD;
+
+  @UI.lineItem:   [{ position: 0030 } ]
+  CreateTS;
+
+  @UI.lineItem:   [{ position: 0040 } ]
+  ChangeUserCD;
+
+  @UI.lineItem:   [{ position: 0050 } ]
+  ChangeTS;
+
+  @UI.lineItem:   [{ position: 0060 } ]
+  ProcessCD;
+
+  @UI.lineItem:   [{ position: 0070 } ]
+  BusinessObjCD;
+
+  @UI.lineItem:   [{ position: 0080 } ]
+  BusinessObjID;
+
+  @UI.lineItem:   [{ position: 0090 } ]
+  RecipientCD;
+
+  @UI.lineItem:   [{ position: 0100 } ]
+  RecipientGroupCD;
+
+  @UI.lineItem:   [{ position: 0110 } ]
+  ReSubmissDT;
+
+  @UI.lineItem:   [{ position: 0120 } ]
+  TargetDT;
+
+  @UI.lineItem:   [{ position: 0130 } ]
+  CompletedFL;
+
+  @UI.lineItem:   [{ position: 0140 } ]
+  Descr;
+
+}

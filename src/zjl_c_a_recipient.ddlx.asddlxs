@@ -1,0 +1,48 @@
+@Metadata.layer: #CORE
+
+@Search.searchable
+
+@UI.headerInfo: { typeName:       '{@i18n>Empfänger}',
+                  typeNamePlural: '{@i18n>Empfänger}',
+                  typeImageUrl:   'sap-icon://activity-items' }
+
+annotate entity ZJL_C_A_RECIPIENT with
+
+{
+  @UI.facet: [
+
+  { id:              'HeaderFacet',
+    purpose:         #HEADER,
+    type:            #FIELDGROUP_REFERENCE,
+    targetQualifier: 'HeaderItems',
+    position:         010 },
+
+   { id:              'Facet_Process',
+      type:            #COLLECTION,
+      label:           '{@i18n>Detail}',
+      position:        020 },
+
+          { id:              'Fieldgroup1-ID',
+            type:            #IDENTIFICATION_REFERENCE,
+            label:           '{@i18n>BasicData}',
+            parentId:        'Facet_Process',
+            targetQualifier: 'Fieldgroup1',
+            position:         010 }
+
+                ]
+
+  @Search.defaultSearchElement: true
+  @UI.lineItem:   [{ position: 0010 } ]
+  @UI.identification: [ { qualifier: 'Fieldgroup1', position: 0010 } ]
+  RecipientGroupCD;
+
+  @Search.defaultSearchElement: true
+  @UI.lineItem:   [{ position: 0020 } ]
+  @UI.identification: [ { qualifier: 'Fieldgroup1', position: 0020 } ]
+  RecipientCD;
+
+  @UI.lineItem:   [{ position: 0030 } ]
+  @UI.identification: [ { qualifier: 'Fieldgroup1', position: 0030 } ]
+  DeleteFl;
+
+}
